@@ -51,10 +51,13 @@ The target directory for the WordPress installation is `/wp/wordpress`.
 6. **Access Your WordPress Installation**:
    Go to your IP address in a web browser to access the WordPress setup.
 
-db name: wordpress_db
-username: wordpress_user
-password:choose_db_password
-host:localhost
+```db name: wordpress_db```
+
+```username: wordpress_user```
+
+```password:choose_db_password```
+
+```host:localhost```
 
 
 ## Additional Tips
