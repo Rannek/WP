@@ -1,0 +1,2 @@
+# WP
+Install Wordpress
