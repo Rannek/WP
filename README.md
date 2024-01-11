@@ -11,7 +11,7 @@ The target directory for the WordPress installation is `/wp/wordpress`.
 
 1. **Install Required Packages**: Install PHP, MariaDB, Apache using pacman.
    ```bash
-   pacman -S apache php php-gd php-intl php-apache php-fpm mariadb unzip tar wget apache
+   pacman -S apache php php-gd php-intl php-apache php-fpm mariadb unzip tar wget
    ```
 
 2. **Create a Folder for WordPress Installation**:
