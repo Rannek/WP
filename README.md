@@ -66,3 +66,74 @@ The target directory for the WordPress installation is `/wp/wordpress`.
    ```php
    <?php phpinfo(); ?>
    ```
+
+
+# Attach Domain Name to Your Apache Server on Arch Linux
+
+## 1. Attach Domain Name to Your Installation
+
+- **Buy a domain name.**
+- **Edit DNS Settings:**
+  - Edit your DNS settings at your domain registrar.
+  - Point your domain to your server's IP address.
+  - You can check your server IP by running `ip addr`.
+
+## 2. Configure Apache
+
+- **Create a Configuration File for Your Domain:**
+  - Run `sudo nano /etc/httpd/conf/extra/yourdomain.com.conf`
+  - Add the following configuration:
+
+    ```apache
+    <VirtualHost *:80>
+        ServerAdmin webmaster@yourdomain.com
+        DocumentRoot "/path/to/wordpress"
+        ServerName yourdomain.com
+        ServerAlias www.yourdomain.com
+
+        <Directory "/path/to/wordpress">
+            AllowOverride All
+            Require all granted
+        </Directory>
+
+        ErrorLog "/var/log/httpd/yourdomain.com-error.log"
+        CustomLog "/var/log/httpd/yourdomain.com-access.log" common
+    </VirtualHost>
+    ```
+
+- **Include the Configuration in Apache:**
+  - Edit the main Apache configuration file: `sudo nano /etc/httpd/conf/httpd.conf`
+  - Add the following line to include your domain configuration:
+    ```
+    Include conf/extra/yourdomain.com.conf
+    ```
+
+- **Restart Apache:**
+  - Restart Apache to apply the changes: `sudo systemctl restart httpd`
+
+- **Wait for DNS Propagation:**
+  - It might take a few hours for the DNS changes to propagate.
+
+## 3. Set Up WordPress
+
+- **Change WordPress URLs:**
+  - In your WordPress admin area, go to **Settings > General**.
+  - Update the following:
+    - WordPress Address (URL)
+    - Site Address (URL)
+  - Change them to your website address.
+
+- **Update Permalinks (Optional):**
+  - You can also change permalinks if desired.
+
+## 4. Install SSL Certificate
+
+- **Install Certbot:**
+  - Run `sudo pacman -S certbot certbot-apache` to install Certbot and its Apache plugin.
+
+- **Obtain and Install SSL Certificate:**
+  - Run `sudo certbot --apache` to obtain and install the SSL certificate.
+
+- **Update WordPress Settings:**
+  - Change your domain in the WordPress settings to `https://www.yourdomain.com`.
+
